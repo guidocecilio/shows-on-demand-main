@@ -1,0 +1,76 @@
+version: '3'
+
+services:
+  shows-db:
+    container_name: shows-db
+    build:
+      context: ../shows-on-demand-admin/src/admin/db
+    ports:
+      - 5435:5432
+    environment:
+      - POSTGRES_USER=postgres
+      - POSTGRES_PASSWORD=postgres
+    healthcheck:
+      test: exit 0
+
+  admin-service:
+    container_name: admin-service
+    image: shows-ondemand/admin-service
+    build:
+      context: ../shows-on-demand-admin
+      dockerfile: Dockerfile
+    volumes:
+      - '../shows-on-demand-admin:/usr/app'
+    ports:
+      - 3032:3032
+    environment:
+      - APP_SETTINGS=admin.config.DevelopmentConfig
+      - DATABASE_URL=postgres://postgres:postgres@shows-db:5432/admin_dev
+      - DATABASE_TEST_URL=postgres://postgres:postgres@shows-db:5432/admin_test
+      - SECRET_KEY=my_precious
+      - PORT=3032
+    depends_on:
+      - shows-db
+    links:
+      - shows-db
+    restart: always
+    stdin_open: true
+    tty: true
+    command: sh -c "gunicorn --config src/admin/gunicorn_hooks.py --workers 2 --worker-class gevent --reload --timeout 5 --bind 0.0.0.0:3032 --access-logfile - --log-file - manage:app"
+
+  users-db:
+    container_name: users-db
+    build:
+      context: ../shows-on-demand-users/src/users/db
+    ports:
+      - 5436:5432
+    environment:
+      - POSTGRES_USER=postgres
+      - POSTGRES_PASSWORD=postgres
+    healthcheck:
+      test: exit 0
+
+  users-service:
+    container_name: users-service
+    image: shows-ondemand/users-service
+    build:
+      context: ../shows-on-demand-users
+      dockerfile: Dockerfile
+    volumes:
+      - '../shows-on-demand-users:/usr/app'
+    ports:
+      - 3033:3033
+    environment:
+      - APP_SETTINGS=users.config.DevelopmentConfig
+      - DATABASE_URL=postgres://postgres:postgres@shows-db:5432/users_dev
+      - DATABASE_TEST_URL=postgres://postgres:postgres@shows-db:5432/users_test
+      - SECRET_KEY=my_precious
+      - PORT=3033
+    depends_on:
+      - users-db
+    links:
+      - users-db
+    restart: always
+    stdin_open: true
+    tty: true
+    command: sh -c "gunicorn --config src/users/gunicorn_hooks.py --workers 2 --worker-class gevent --reload --timeout 5 --bind 0.0.0.0:3033 --access-logfile - --log-file - manage:app"
