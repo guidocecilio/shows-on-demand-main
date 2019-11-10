@@ -4,7 +4,7 @@ services:
   shows-db:
     container_name: shows-db
     build:
-      context: ../shows-on-demand-admin/app/db
+      context: https://github.com/guidocecilio/shows-on-demand-admin.git#master:src/admin/db
     ports:
       - 5435:5432
     environment:
@@ -17,26 +17,23 @@ services:
     container_name: admin-service
     image: shows-ondemand/admin-service
     build:
-      context: ../shows-on-demand-admin
+      context: https://github.com/guidocecilio/shows-on-demand-admin.git
       dockerfile: Dockerfile
     volumes:
-      - ../shows-on-demand-admin:/usr/src/app
+      - '../shows-on-demand-admin:/usr/app'
     ports:
       - 3032:3032
     environment:
-      - APP_SETTINGS=app.config.DevelopmentConfig
+      - APP_SETTINGS=admin.config.DevelopmentConfig
       - DATABASE_URL=postgres://postgres:postgres@shows-db:5432/admin_dev
       - DATABASE_TEST_URL=postgres://postgres:postgres@shows-db:5432/admin_test
-      - SECRET_KEY=my_precious
+      - SECRET_KEY=${SECRET_KEY}
       - PORT=3032
     depends_on:
       - shows-db
     links:
       - shows-db
-    restart: always
-    stdin_open: true
-    tty: true
-    # command: sh -c gunicorn --config app/gunicorn_hooks.py --workers 2 --worker-class gevent --reload --timeout 5 --bind 0.0.0.0:3032 --access-logfile - --log-file - manage:app
+    command: sh -c "gunicorn --config src/admin/gunicorn_hooks.py --workers 2 --worker-class gevent --reload --timeout 5 --bind 0.0.0.0:3032 --access-logfile - --log-file - manage:app"
 
   users-db:
     container_name: users-db

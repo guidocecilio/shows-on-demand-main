@@ -1,0 +1,39 @@
+{
+  "containerDefinitions": [
+    {
+      "name": "shows-on-demand-admin-service-prod",
+      "image": "%s.dkr.ecr.us-east-1.amazonaws.com\/shows-on-demand-admin:production",
+      "essential": true,
+      "memoryReservation": 300,
+      "cpu": 300,
+      "portMappings": [
+        {
+          "containerPort": 5000,
+          "hostPort": 0,
+          "protocol": "tcp"
+        }
+      ],
+      "environment": [
+        {
+          "name": "APP_SETTINGS",
+          "value": "admin.config.ProductionConfig"
+        },
+        {
+          "name": "DATABASE_URL",
+          "value": "%s"
+        },
+        {
+          "name": "SECRET_KEY",
+          "value": "%s"
+        }
+      ],
+      "logConfiguration": {
+        "logDriver": "awslogs",
+        "options": {
+          "awslogs-group": "shows-on-demand-production",
+          "awslogs-region": "us-east-1"
+        }
+      }
+    }
+  ]
+}
