@@ -37,7 +37,7 @@ All services are deployed on VPN and all HTTP requests are encrypted with SSL/TL
    </td>
    <td>Admin service is in charge of adding, updating and deleting Shows. In order to support the update by the Admin Web client, the Admin module has also a table to control the admin’s authentication independently.
    </td>
-   <td> 
+   <td>[shows-on-demand-admin](https://github.com/guidocecilio/shows-on-demand-admin)
    </td>
   </tr>
   <tr>
@@ -45,7 +45,7 @@ All services are deployed on VPN and all HTTP requests are encrypted with SSL/TL
    </td>
    <td>User service is in charge of the users’ registration and authentication.
    </td>
-   <td> 
+   <td>[shows-on-demand-users](https://github.com/guidocecilio/shows-on-demand-users)
    </td>
   </tr>
   <tr>
@@ -69,7 +69,7 @@ All services are deployed on VPN and all HTTP requests are encrypted with SSL/TL
    </td>
    <td>Video on Demand on AWS
    </td>
-   <td> 
+   <td>
    </td>
   </tr>
 </table>
