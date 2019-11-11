@@ -7,7 +7,7 @@ The service is composed of various services that are described below. These serv
  
 The Shows on Demand relies heavily on an architecture similar to [Video on Demand on AWS](https://aws.amazon.com/solutions/video-on-demand-on-aws/) in order to convert into stream ready video shows and make the videos available for on-demand consumption. Despite, not being a key feature for the POC in the document are few parts that cover the idea of using a "Video On Demand architecture".
 
-For more details Read the POC High Level Design.
+For more details Read the POC [High Level Design](docs/hld.md).
 
 ## Local Setup
 
