@@ -7,6 +7,7 @@ The service is composed of various services that are described below. These serv
  
 The Shows on Demand relies heavily on an architecture similar to [Video on Demand on AWS](https://aws.amazon.com/solutions/video-on-demand-on-aws/) in order to convert into stream ready video shows and make the videos available for on-demand consumption. Despite, not being a key feature for the POC in the document are few parts that cover the idea of using a "Video On Demand architecture".
 
+For more details Read the POC High Level Design.
 
 ## Local Setup
 
@@ -26,6 +27,16 @@ $ git clone https://github.com/guidocecilio/shows-on-demand-users.git
 $ cd shows-on-demand-main
 $ docker-compose up --build
 ``` 
+
+## Devel
+The current microservice template has been taken from the [Flask Microservices](https://github.com/testdrivenio/flask-microservices-main) template and still a work on progress.
+At the moment the Show on-demand POC works in local dev using `docker-compose up`.
+
+This repository covers:
+* The local development deployment using `docker-compose up` (Implemented)
+* CI\CD setup with Travis (In progress)
+* Deployment to AWS using EC2 with CludFormation (In progress)
+* E2E Integration test to ensure the whole sercvice work as expected (Each microservice should be functional to be implemented)
 
 Once the containers are deployed and running the APIs can be checked by visiting
 the following URLs:
