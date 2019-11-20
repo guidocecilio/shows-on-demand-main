@@ -36,7 +36,7 @@ services:
     restart: always
     stdin_open: true
     tty: true
-    # command: sh -c gunicorn --config app/gunicorn_hooks.py --workers 2 --worker-class gevent --reload --timeout 5 --bind 0.0.0.0:3032 --access-logfile - --log-file - manage:app
+    # command: sh -c gunicorn --config app/gunicorn_hooks.py --workers 2 --worker-class gevent --reload --timeout 5 --bind 0.0.0.0:3032 --access-logfile - --log-file - manage :app
 
   users-db:
     container_name: users-db

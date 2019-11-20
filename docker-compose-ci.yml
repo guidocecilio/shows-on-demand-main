@@ -4,7 +4,7 @@ services:
   shows-db:
     container_name: shows-db
     build:
-      context: https://github.com/guidocecilio/shows-on-demand-admin.git#master:src/admin/db
+      context: https://github.com/guidocecilio/shows-on-demand-admin.git#master:admin/db
     ports:
       - 5435:5432
     environment:

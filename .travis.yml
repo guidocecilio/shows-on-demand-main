@@ -21,10 +21,10 @@ env:
   global:
     - DOCKER_COMPOSE_VERSION=1.24.1
     - COMMIT=${TRAVIS_COMMIT::8}
-    - USERS=flask-microservices-users
-    - USERS_REPO=https://github.com/realpython/$USERS.git
-    - USERS_DB=flask-microservices-users_db
-    - USERS_DB_REPO=https://github.com/realpython/$USERS.git#master:project/db
+    - ADMIN=shows-on-demand-admin
+    - ADMIN_REPO=https://github.com/guidocecilio/$ADMIN.git
+    - ADMIN_USERS_DB=shows-on-demand-admin-users_db
+    - ADMIN_USERS_DB_REPO=https://github.com/guidocecilio/$ADMIN.git#master:app/db
 
 before_install:
   - sudo rm /usr/local/bin/docker-compose
@@ -40,8 +40,7 @@ before_script:
   - bash ./docker_build.sh
 
 script:
-  - docker-compose -f docker-compose-ci.yml run users-service python manage.py test
-  - docker-compose -f docker-compose-ci.yml run users-service python manage.py recreate_db
+  - docker-compose -f docker-compose-ci.yml run admin-service python manage.py initialize_db
 
 after_script:
   - docker-compose down

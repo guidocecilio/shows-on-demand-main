@@ -43,6 +43,18 @@ the following URLs:
 * http://localhost:3032/api-docs/ Shows REST API
 * http://localhost:3033/api-docs/ Auth and Users REST API
 
+## Database
+Postgres databases are creating by adding a `.sql` to the `/docker-entrypoint-initdb.d/` folder. All is needed to deploy the database is the script and the _Dockerfile_ specifying the copy of this script to the folder.
+
+```
+FROM postgres
+
+# run create.sql on init
+ADD create.sql /docker-entrypoint-initdb.d
+```
+
+For more details about the script approach read the [Official postgres docker image](https://hub.docker.com/_/postgres/) documentation or this [answer from StackOverflow](https://stackoverflow.com/questions/26598738/how-to-create-user-database-in-script-for-docker-postgres).
+
 ## Future considerations
 The POC is being developed to be deployed on AWS EC2 but also considering 
 deployments unsing:
